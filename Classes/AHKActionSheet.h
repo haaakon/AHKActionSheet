@@ -14,8 +14,8 @@ typedef NS_ENUM(NSInteger, AHKActionSheetButtonType) {
 };
 
 @class AHKActionSheet;
-typedef void(^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
-
+typedef void (^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
+typedef void (^didChooseItemHandler)(AHKActionSheet *actionSheet, id item);
 
 /// A block-based alternative to the `UIAlertView`.
 @interface AHKActionSheet : UIView <UIAppearanceContainer>
@@ -55,9 +55,8 @@ typedef void(^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
 /// Duration of the show/dismiss animations. Defaults to 0.5.
 @property (nonatomic) NSTimeInterval animationDuration UI_APPEARANCE_SELECTOR;
 
-
 /// A handler called on every type of dismissal (tapping on "Cancel" or swipe down or flick down).
-@property (strong, nonatomic) AHKActionSheetHandler cancelHandler;
+@property (strong, nonatomic) didChooseItemHandler cancelHandler;
 @property (copy, nonatomic) NSString *cancelButtonTitle;
 /// String to display above the buttons.
 @property (copy, nonatomic) NSString *title;
@@ -65,7 +64,6 @@ typedef void(^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
 @property (strong, nonatomic) UIView *headerView;
 /// Window visible before the actionSheet was presented.
 @property (weak, nonatomic, readonly) UIWindow *previousKeyWindow;
-
 
 /**
  *  Initializes the action sheet with a specified title. `headerView` can be used if a string is insufficient for the title; set `title` as `nil` in this case.
@@ -83,7 +81,7 @@ typedef void(^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
  *
  *  @param handler The block called after the button has been tapped.
  */
-- (void)addButtonWithTitle:(NSString *)title type:(AHKActionSheetButtonType)type handler:(AHKActionSheetHandler)handler;
+- (void)addButtonWithTitle:(NSString *)title type:(AHKActionSheetButtonType)type handler:(didChooseItemHandler)handler;
 
 /**
  *  Adds a button with an image. Has to be called before showing the action sheet.
@@ -91,7 +89,7 @@ typedef void(^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
  *  @param image   The image to display on the left of the title.
  *  @param handler The block called after the button has been tapped.
  */
-- (void)addButtonWithTitle:(NSString *)title image:(UIImage *)image type:(AHKActionSheetButtonType)type handler:(AHKActionSheetHandler)handler;
+- (void)addButtonWithTitle:(NSString *)title image:(UIImage *)image type:(AHKActionSheetButtonType)type handler:(didChooseItemHandler)handler;
 
 /// Displays the action sheet.
 - (void)show;
@@ -99,4 +97,12 @@ typedef void(^AHKActionSheetHandler)(AHKActionSheet *actionSheet);
 /// Dismisses the action sheet with an optional animation.
 - (void)dismissAnimated:(BOOL)animated;
 
+@end
+
+/// Used for storing button configuration.
+@interface AHKActionSheetItem : NSObject
+@property (copy, nonatomic) NSString *title;
+@property (strong, nonatomic) UIImage *image;
+@property (nonatomic) AHKActionSheetButtonType type;
+@property (strong, nonatomic) didChooseItemHandler didChooseItemHandler;
 @end
