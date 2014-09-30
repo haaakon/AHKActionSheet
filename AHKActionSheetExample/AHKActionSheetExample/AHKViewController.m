@@ -34,28 +34,28 @@
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Info", nil)
                               image:[UIImage imageNamed:@"Icon1"]
                                type:AHKActionSheetButtonTypeDefault
-                            handler:^(AHKActionSheet *as) {
+                            handler:^(AHKActionSheet *as, id item) {
                                 NSLog(@"Info tapped");
                             }];
 
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Add to Favorites", nil)
                               image:[UIImage imageNamed:@"Icon2"]
                                type:AHKActionSheetButtonTypeDefault
-                            handler:^(AHKActionSheet *as) {
+                            handler:^(AHKActionSheet *as, id item) {
                                 NSLog(@"Favorite tapped");
                             }];
 
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Share", nil)
                               image:[UIImage imageNamed:@"Icon3"]
                                type:AHKActionSheetButtonTypeDefault
-                            handler:^(AHKActionSheet *as) {
+                            handler:^(AHKActionSheet *as, id item) {
                                 NSLog(@"Share tapped");
                             }];
 
     [actionSheet addButtonWithTitle:NSLocalizedString(@"Delete", nil)
                               image:[UIImage imageNamed:@"Icon4"]
                                type:AHKActionSheetButtonTypeDestructive
-                            handler:^(AHKActionSheet *as) {
+                            handler:^(AHKActionSheet *as, id item ) {
                                 NSLog(@"Delete tapped");
                             }];
 
